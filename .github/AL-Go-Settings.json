@@ -1,4 +1,8 @@
 {
-  "type": "AppSource App",
-  "templateUrl": "https://github.com/microsoft/AL-Go-AppSource@main"
+    "type":  "AppSource App",
+    "templateUrl":  "https://github.com/microsoft/AL-Go-AppSource@main",
+    "githubrunner": "self-hosted",
+    "environments": [
+                        "TestGit"
+                    ]
 }
