@@ -33,7 +33,7 @@ env:
 jobs:
 
   TimeFromLastCommit:
-    #if: github.event_name == 'schedule' 
+    if: github.event_name == 'schedule' 
     runs-on: [ windows-latest ]
     outputs:
       run_rest_jobs: ${{ steps.set_output.outputs.run_jobs }}
