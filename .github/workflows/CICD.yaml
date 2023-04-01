@@ -31,8 +31,31 @@ env:
   ALGoRepoSettings: ${{ vars.ALGoRepoSettings }}
 
 jobs:
+
+  TimeFromLastCommit:
+    #if: github.event_name == 'schedule' 
+    runs-on: [ windows-latest ]
+    outputs:
+      run_rest_jobs: ${{ steps.set_output.outputs.run_jobs }}
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            lfs: true
+    
+        - name: CheckLastCommitDate
+          id: set_output
+          run: |
+              $MinutesFromLastComit = ((Get-Date) - (Get-Date (git log -1 --date=format:"%Y/%m/%d %T" --format="%ad")))
+              $MinutesFromLastComitRounded = [math]::Round($MinutesFromLastComit.TotalHours)+3
+              Write-Host ($MinutesFromLastComitRounded -gt 24)
+              Write-Host "It was $MinutesFromLastComitRounded hours from last commit"
+              If($MinutesFromLastComitRounded -gt 24){Write-Host "::set-output name=run_jobs::true"} else {Write-Host "::set-output name=run_jobs::false"}
+
+
   Initialization:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    needs: [ TimeFromLastCommit ]
+    if: needs.job01.outputs.run_rest_jobs == 'true'&&github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: [ windows-latest ]
     outputs:
       telemetryScopeJson: ${{ steps.init.outputs.telemetryScopeJson }}
@@ -77,13 +100,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           lfs: true
-    
-      - name: CheckLastCommitDate
-        run: |
-              $MinutesFromLastComit = ((Get-Date) - (Get-Date (git log -1 --date=format:"%Y/%m/%d %T" --format="%ad")))
-              $MinutesFromLastComitRounded = [math]::Round($MinutesFromLastComit.TotalHours)+3
-              Write-Host ($MinutesFromLastComitRounded -gt 24)
-              Write-Host "It was $MinutesFromLastComitRounded hours from last commit"
     
       - name: Download Pull Request Changes
         if: github.event_name == 'workflow_run'
