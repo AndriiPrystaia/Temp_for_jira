@@ -81,7 +81,7 @@ jobs:
       - name: CheckLastCommitDate
         run: |
               $MinutesFromLastComit = ((Get-Date) - (Get-Date (git log -1 --date=format:"%Y/%m/%d %T" --format="%ad")))
-              $MinutesFromLastComitRounded = [math]::Round($MinutesFromLastComit.TotalHours)
+              $MinutesFromLastComitRounded = [math]::Round($MinutesFromLastComit.TotalHours)-3
               Write-Host ($MinutesFromLastComitRounded -gt 24)
               Write-Host "It was $MinutesFromLastComitRounded hours from last commit"
     
