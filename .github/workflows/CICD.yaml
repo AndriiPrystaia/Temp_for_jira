@@ -78,6 +78,13 @@ jobs:
         with:
           lfs: true
     
+      - name: CheckLastCommitDate
+        run: |
+              $MinutesFromLastComit = ((Get-Date (date)) - (Get-Date (git log -1 --date=format:"%Y/%m/%d %T" --format="%ad")))
+              $MinutesFromLastComitRounded = [math]::Round($MinutesFromLastComit.TotalHours)
+              Write-Host ($MinutesFromLastComitRounded -gt 24)
+              Write-Host "It was $MinutesFromLastComitRounded hours from last commit"
+    
       - name: Download Pull Request Changes
         if: github.event_name == 'workflow_run'
         uses: actions/github-script@v6
