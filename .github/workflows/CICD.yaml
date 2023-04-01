@@ -2,7 +2,7 @@ name: ' CI/CD'
 
 on:
   schedule:
-    - cron:  '01 * 1 * *'
+    - cron:  '05 * 1 * *'
   workflow_dispatch:
   workflow_run:
     workflows: ["Pull Request Handler"]
