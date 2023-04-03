@@ -52,6 +52,7 @@ jobs:
               Write-Host ($MinutesFromLastComitRounded -gt 24)
               Write-Host "It was $MinutesFromLastComitRounded hours from last commit"
               If($MinutesFromLastComitRounded -gt 24){Write-Host "{run_jobs}={false}" >> $GITHUB_OUTPUT} else {Write-Host "{run_jobs}={true}" >> $GITHUB_OUTPUT}
+              Write-Host $GITHUB_OUTPUT
 
 
   Initialization:
