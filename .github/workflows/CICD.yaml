@@ -51,8 +51,8 @@ jobs:
               $MinutesFromLastComitRounded = [math]::Round($MinutesFromLastComit.TotalHours)+3
               Write-Host ($MinutesFromLastComitRounded -gt 24)
               Write-Host "It was $MinutesFromLastComitRounded hours from last commit"
-              If($MinutesFromLastComitRounded -gt 24){Write-Host "{run_jobs}={false}" >> $GITHUB_OUTPUT} else {Write-Host "{run_jobs}={true}" >> $GITHUB_OUTPUT}
-              Write-Host $GITHUB_OUTPUT
+              If($MinutesFromLastComitRounded -gt 24){Write-Host "{run_jobs}={false}" >> $env:$GITHUB_OUTPUT} else {Write-Host "{run_jobs}={true}" >> $env:$GITHUB_OUTPUT}
+              Write-Host $env:$GITHUB_OUTPUT
 
 
   Initialization:
