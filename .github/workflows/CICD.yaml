@@ -51,13 +51,13 @@ jobs:
               $MinutesFromLastComitRounded = [math]::Round($MinutesFromLastComit.TotalHours)+3
               Write-Host ($MinutesFromLastComitRounded -gt 24)
               Write-Host "It was $MinutesFromLastComitRounded hours from last commit"
-              If($MinutesFromLastComitRounded -gt 24){Write-Host "run_jobs=False" >> $GITHUB_OUTPUT} else {Write-Host "run_jobs=True" >> $GITHUB_OUTPUT}
-              Write-Host $GITHUB_OUTPUT
+              If($MinutesFromLastComitRounded -gt 24){Write-Host "run_jobs=False" >> $env:GITHUB_OUTPUT} else {Write-Host "run_jobs=True" >> $env:GITHUB_OUTPUT}
+              Write-Host $env:GITHUB_OUTPUT
 
 
   Initialization:
     needs: [ TimeFromLastCommit ]
-    if: needs.TimeFromLastCommit.outputs.run_rest_jobs == 'true'&&github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    if: needs.TimeFromLastCommit.outputs.run_rest_jobs == 'True'&&github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: [ windows-latest ]
     outputs:
       telemetryScopeJson: ${{ steps.init.outputs.telemetryScopeJson }}
