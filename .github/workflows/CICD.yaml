@@ -47,11 +47,11 @@ jobs:
         - name: CheckLastCommitDate
           id: set_output
           run: |
-              $MinutesFromLastComit = ((Get-Date) - (Get-Date (git log -1 --date=format:"%Y/%m/%d %T" --format="%ad")))
-              $MinutesFromLastComitRounded = [math]::Round($MinutesFromLastComit.TotalHours)+3
-              Write-Host ($MinutesFromLastComitRounded -gt 24)
-              Write-Host "It was $MinutesFromLastComitRounded hours from last commit"
-              If($MinutesFromLastComitRounded -gt 1){echo "run_jobs=false" >> $env:GITHUB_OUTPUT} else {echo "run_jobs=true" >> $env:GITHUB_OUTPUT}
+              $HoursFromLastComit = ((Get-Date) - (Get-Date (git log -1 --date=format:"%Y/%m/%d %T" --format="%ad")))
+              $HoursFromLastComitRounded = [math]::Round($HoursFromLastComit.TotalHours)+3
+              Write-Host ($HoursFromLastComitRounded -gt 1)
+              Write-Host "It was $HoursFromLastComitRounded hours from last commit"
+              If($HoursFromLastComitRounded -gt 1){echo "run_jobs=false" >> $env:GITHUB_OUTPUT} else {echo "run_jobs=true" >> $env:GITHUB_OUTPUT}
           shell: pwsh
 
   Initialization:
