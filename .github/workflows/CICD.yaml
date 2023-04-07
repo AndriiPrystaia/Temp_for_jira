@@ -4,16 +4,16 @@ on:
   schedule:
     - cron:  '05 12 2 * *'
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Pull Request Handler"]
-    types:
-      - completed
-  push:
-    paths-ignore:
-      - '**.md'
-      - '.github/workflows/*.yaml'
-      - '!.github/workflows/CICD.yaml'
-    branches: [ 'main', 'release/*', 'feature/*' ]
+#  workflow_run:
+#    workflows: ["Pull Request Handler"]
+#    types:
+#      - completed
+#  push:
+#    paths-ignore:
+#      - '**.md'
+#      - '.github/workflows/*.yaml'
+#      - '!.github/workflows/CICD.yaml'
+#    branches: [ 'main', 'release/*', 'feature/*' ]
 
 run-name: ${{ github.event_name != 'workflow_run' && 'CI/CD' || format('Check pull request from {1}/{2}{0} {3}',':',github.event.workflow_run.head_repository.owner.login,github.event.workflow_run.head_branch,github.event.workflow_run.display_title) }}
 
