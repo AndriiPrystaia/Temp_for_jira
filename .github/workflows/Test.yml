@@ -28,7 +28,7 @@ jobs:
           $connectTestResult = Test-NetConnection -ComputerName githubalgo.file.core.windows.net -Port 445
           if ($connectTestResult.TcpTestSucceeded) {
            # Save the password so the drive will persist on reboot
-           cmd.exe /C "cmdkey /add:`"githubalgo.file.core.windows.net`" /user:`"localhost\githubalgo`" /pass:`"ssfRJpDxBnMUaD9oN3YXC69QEw2nA2k2rpRLcg/NwP1tCRE1QmZ7autmfzuJ1u9t7xwvoBZPibqA+ASt/8p7Aw==`""
+           cmd.exe /C "cmdkey /add:`"githubalgo.file.core.windows.net`" $LIC_ACC_CRED
            # Mount the drive
            New-PSDrive -Name Z -PSProvider FileSystem -Root "\\githubalgo.file.core.windows.net\test" -Persist
            } else {
