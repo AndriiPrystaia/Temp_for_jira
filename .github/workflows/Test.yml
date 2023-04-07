@@ -1,5 +1,5 @@
-name: ' TEst'
-run-name: 'TEst'
+name: ' Test'
+run-name: 'Test'
 on:
 
   workflow_dispatch:
@@ -15,7 +15,7 @@ defaults:
     shell: powershell
 jobs:
 
-Initialization:
+ Initialization:
   runs-on: [ windows-latest ]
   steps:
      - name: Checkout
