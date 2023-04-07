@@ -1,5 +1,5 @@
-name: ' CI/CD_selfhosted'
-
+name: ' TEst'
+run-name: 'TEst'
 on:
 
   workflow_dispatch:
@@ -13,17 +13,17 @@ permissions:
 defaults:
   run:
     shell: powershell
-
 jobs:
 
-  Initialization:
-  
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
+Initialization:
+  runs-on: [ windows-latest ]
+  steps:
+     - name: Checkout
+       uses: actions/checkout@v3
+       with:
           lfs: true
       
-      - name: ImportLicenseFromAzure
+     - name: ImportLicenseFromAzure
         run: |
           $connectTestResult = Test-NetConnection -ComputerName githubalgo.file.core.windows.net -Port 445
           if ($connectTestResult.TcpTestSucceeded) {
